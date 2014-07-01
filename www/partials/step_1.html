@@ -1,0 +1,62 @@
+    <div class="page-header">
+        <h3>Step 1 - Recruiter Verification</h3>
+    </div>
+
+    <h3 class="questionhdr">Confirm your understanding of the job <span class="label label-primary"> {{job.title}}</span></h3>
+    <div id="recruiter_q" ng-repeat="rq in recruiterQuestions">
+        <label class="col-sm-2 control-label">{{rq.question}}</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="{{rq.description}}">
+            <span class="badge pull-right">{{rq.points}}</span>
+        </div>
+    </div>
+
+    <h3 class="questionhdr">Skills</h3>
+    <p>
+        The following skills are pertinent to this job :
+        (Click on the skill to answer a few questions if you like)
+    </p>
+
+        <div class="panel-group" id="accordion" ng-repeat="keyword in job.keywords">
+            <div class="panel panel-default panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#{{keyword}}_panel">
+                            {{keyword}}
+                        </a>
+                        <span class="badge pull-right">5</span>
+                    </h4>
+                </div>
+                <div id="{{keyword}}_panel" class="panel-collapse collapse in">
+                    <div class="panel-body">
+
+                        <div ng-repeat="sq in questions(keyword)">
+                            <div class="skillquestion">
+                                <p>{{sq.question}}
+                                    {{sq | json}}
+                                    <span class="badge pull-right">{{sq.points}}</span>
+                                </p>
+                                <div class="list-group" ng-repeat="ao in sq.answerOptions">
+                                    <a href="#" class="list-group-item" ng-class="{active: ao.selected}" ng-click="checkAnswer(ao)">
+                                        {{ao.answerOption}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" class="button" value="Next" ui-sref="wizard.step2"/>
+        </div>
+    </div>
+
+
+
+
